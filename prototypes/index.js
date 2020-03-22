@@ -52,28 +52,13 @@ const kittyPrompts = {
   },
 
   growUp() {
-    // Return an array of kitties who have all grown up by 2 years e.g.
-    // [{
-    //   name: 'Felicia',
-    //   age: 4,
-    //   color: 'grey'
-    // },
-    // {
-    //   name: 'Tiger',
-    //   age: 7,
-    //   color: 'orange'
-    // },
-    // ...etc]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    kitties.forEach(kitty => {
+      kitty.age += 2;
+    });
+    kittyPrompts.sortByAge();
+    return kitties;
   }
 };
-
-
-
-
-
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
