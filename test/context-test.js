@@ -55,7 +55,7 @@ describe("CONTEXT", () => {
   }), it("exerciseL", () => {
     const e = "dog" == context.exerciseL();
     expect(e).withMessage("Your result is not the correct context").to.be.true
-  }), it("exerciseM", () => {
+  }), it.only("exerciseM", () => {
     const e = "robert" == context.exerciseM();
     expect(e).withMessage("Your result is not the correct context").to.be.true
   }), it("exerciseN", () => {

@@ -1,3 +1,5 @@
+// eslint-disable
+
 const { kitties } = require('./datasets/kitties');
 const { clubs } = require('./datasets/clubs');
 const { mods } = require('./datasets/mods');
@@ -12,8 +14,6 @@ const { bosses, sidekicks } = require('./datasets/bosses');
 const { constellations, stars } = require('./datasets/astronomy');
 const { weapons, characters } = require('./datasets/ultima');
 const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
-
-
 
 
 
@@ -68,9 +68,6 @@ const kittyPrompts = {
 
 
 
-
-
-
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
   membersBelongingToClubs() {
@@ -93,15 +90,11 @@ const clubPrompts = {
 
 
 
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
 
 
 
@@ -118,8 +111,12 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = mods.forEach(mod => {
+      mod['studentsPerInstructor'] = mod.students / mod.instructors;
+      delete mod['students'];
+      delete mod['instructors'];
+    });
+    return mods;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -128,17 +125,11 @@ const modPrompts = {
 
 
 
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
 
 
 
@@ -153,35 +144,23 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = cakes.forEach(cake => {
+      cake['flavor'] = cake['cakeFlavor'];
+      delete cake.cakeFlavor;
+      delete cake.filling;
+      delete cake.frosting;
+      delete cake.toppings;
+    });
+    return cakes;
 
     // Annotation:
     // Write your annotation here as a comment
   },
 
   onlyInStock() {
-    // Return an array of only the cakes that are in stock
-    // e.g.
-    // [
-    //   {
-    //   cakeFlavor: 'dark chocolate',
-    //   filling: null,
-    //   frosting: 'dark chocolate ganache',
-    //   toppings: ['dutch process cocoa', 'toasted sugar', 'smoked sea salt'],
-    //   inStock: 15
-    // },
-    // {
-    //   cakeFlavor: 'yellow',
-    //   filling: 'citrus glaze',
-    //   frosting: 'chantilly cream',
-    //   toppings: ['berries', 'edible flowers'],
-    //   inStock: 14
-    // },
-    // ..etc
-    // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+
+    const result = cakes.filter(cake => cake.inStock > 0);
     return result;
 
     // Annotation:
@@ -192,7 +171,9 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce(function(acc, cake) {
+      return acc += cake.inStock;
+    }, 0);
     return result;
 
     // Annotation:
@@ -200,15 +181,12 @@ const cakePrompts = {
   },
 
   allToppings() {
-    // Return an array of all unique toppings (no duplicates) needed to bake
-    // every cake in the dataset e.g.
-    // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
+    let toppingsWithDup = cakes.reduce(
+      (acc, value) => acc.concat(value.toppings), []);
+    let toppingsUnique = toppingsWithDup.filter(function(item, index){
+      return toppingsWithDup.indexOf(item) >= index;
+    });
+    return toppingsUnique;
   },
 
   groceryList() {
@@ -221,8 +199,15 @@ const cakePrompts = {
     //    'berries': 2,
     //    ...etc
     // }
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    let allToppings = [];
+    cakes.forEach(cake => cake.toppings.forEach(topping => {
+        allToppings.push(topping);
+      }));
+    console.log(allToppings);
+    return allToppings.forEach(topping => {
+      console.log(allToppings.filter(topping));
+    })
+    let result = {};
     return result;
 
     // Annotation:
