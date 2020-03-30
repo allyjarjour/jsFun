@@ -63,7 +63,7 @@ describe("PROTOTYPES", () => {
       }])
     })
   }), describe("Club Prompts", () => {
-    it.only("membersBelongingToClubs", () => {
+    it("membersBelongingToClubs", () => {
       const e = clubPrompts.membersBelongingToClubs({
         Louisa: ["Drama", "Art"],
         Pam: ["Drama", "Chess", "Newspaper"],
@@ -560,7 +560,7 @@ describe("PROTOTYPES", () => {
       }])
     })
   }), describe("Dinosaur Prompts", () => {
-    it("countAwesomeDinosaurs", () => {
+    it.only("countAwesomeDinosaurs", () => {
       const e = dinosaurPrompts.countAwesomeDinosaurs();
       expect(e).to.deep.equal({
         'Jurassic Park': 5,

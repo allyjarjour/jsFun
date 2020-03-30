@@ -791,7 +791,23 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+
+    const dinoKeys = Object.keys(dinosaurs)
+    let awesomeDinos = dinoKeys.filter(key => {
+    return  dinosaurs[key].isAwesome === true;
+    });
+    var test = movies.reduce((acc, movie) => {
+      let counter = 0;
+      movie.dinos.forEach(dino => {
+        if (awesomeDinos.includes(dino)) {
+          counter++
+        }
+      })
+      acc[movie.title] = counter
+      return acc
+    }, {})
+
+    const result = test;
     return result;
 
     // Annotation:
